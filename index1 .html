@@ -14,59 +14,84 @@
     background-image: url(Avdol.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    }
     
-    table, th, td {
-    border: 1px solid black;
+    *{
+        text-align: left;
+    }
+    
+    input{
+        display: block;
+        margin-left: 0;
+    }
+    
+    div{
+        height: 100vh;
     }
     
 </style>
 
 <body>
 
-<div class="container p-3 bg-light bg-opacity-50 text-dark text-center rounded">     
+<div class="container-sm ms-3 p-3 bg-light bg-opacity-50 text-dark border rounded" style="width: fit-content;">     
     
-    <h2 class="form-title">HEAT INDEX</h2>
+    <h1 class="form-title">HEAT INDEX</h1>
    
     <details class="ontoggle">
         <summary>Intructions</summary>
         <p id="instruct"></p>
-    </details
+    </details>
+    
+    <br><br>
 
+    <h2>Degree in °C</h2>
+    <input type="number" id="heat" name="quantity" placeholder="Input degree value">
+    
+    <br>
+    
+    <h2>Humidity in %</h2>
+    <input type="number" id="humidity" name="quantity" placeholder="Input percentage value">
+    
+    <br>
+
+    <button onclick="Calculate()">Check</button>
 
 </div>
 
-    <button class="btn btn-info" onclick="TeamRank()">Rank</button>
-    
     <script>
-        function TeamRank(){
-            var rank = "1st";
-            var message = "";
-            
-            switch(true){
-                case (rank === "1st"):
-                    message = "Champions!";
-                    break;
-                    
-                case (rank === "2nd"):
-                    message = "Second Placer!";
-                    break;
-                    
-                case (rank === "3rd"):
-                    message = "Third Placer!";
-                    break;
-                    
-                case (rank === "4th"):
-                    message = "Fourth Placer!";
-                    break;
-                    
-                default:
-                    message = "Rank could not be determined.";
-                    
-        }
-            alert(message);
-    }
     
-    document.getElementById('instruct').innerHTML = "";
+    document.getElementById("instruct").innerHTML =
+"Enter temperature and humidity, then click the button.";
+
+function Calculate() {
+
+    heat= Number(document.getElementById("heat").value);
+    humidity= Number(document.getElementById("humidity").value);
+
+    if (isNaN(heat) || isNaN(humidity)) {
+        alert("Please enter valid numbers.");
+        return;
+    }
+
+    HeatIndex= heat+(0.33*humidity) -4;
+
+    status= "";
+
+    if (HeatIndex <= 27) {
+        alert = "Comfortable / Cool";
+    } else if (HeatIndex <= 32) {
+        alert = "Warm";
+    } else if (HeatIndex <= 37) {
+        alert = "Hot";
+    } else if (HeatIndex <= 41) {
+        alert = "Very Hot";
+    } else if (HeatIndex <= 42) {
+        alert = "Extreme Heat";
+    }
+
+   alert("Heat Index: " + HeatIndex.toFixed(2) + "°C\nStatus: " + status);
+}
+
 
     </script>
 </body>
